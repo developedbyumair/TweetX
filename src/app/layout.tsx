@@ -7,7 +7,7 @@ import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
 import { ThemeProvider } from "@/components/theme-provider"
 
-const inter = Inter({ subsets: ["latin"] })
+const fontSans = Inter({ subsets: ["latin"], variable: "--font-sans" })
 
 interface RootLayoutProps {
   children: React.ReactNode
@@ -68,8 +68,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
-          "min-h-screen bg-background antialiased",
-          inter.className
+          "flex min-h-screen flex-col bg-background font-sans antialiased",
+          fontSans.variable
         )}
       >
         <ThemeProvider
