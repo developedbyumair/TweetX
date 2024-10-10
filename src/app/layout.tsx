@@ -1,13 +1,24 @@
 import "@/styles/globals.css"
 
 import type { Metadata, Viewport } from "next"
-import { Inter } from "next/font/google"
+import { Inter, JetBrains_Mono } from "next/font/google"
 
 import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
 import { ThemeProvider } from "@/components/theme-provider"
 
 const fontSans = Inter({ subsets: ["latin"], variable: "--font-sans" })
+
+const fontHeading = Inter({
+  subsets: ["latin"],
+  variable: "--font-heading",
+  weight: ["600", "700", "800"],
+})
+
+const fontMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+})
 
 interface RootLayoutProps {
   children: React.ReactNode
@@ -69,12 +80,14 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body
         className={cn(
           "flex min-h-screen flex-col bg-background font-sans antialiased",
-          fontSans.variable
+          fontHeading.variable,
+          fontSans.variable,
+          fontMono.variable
         )}
       >
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme="light"
           enableSystem
           disableTransitionOnChange
         >
