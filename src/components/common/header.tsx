@@ -12,7 +12,9 @@ export function Header() {
       <div className="container relative flex h-full w-full flex-1 px-4 sm:px-8">
         <div className="mx-auto flex h-full w-full max-w-screen-xl flex-1 items-center justify-between lg:px-20 xl:px-[60px]">
           <Link href="/" className={`flex items-center`}>
-            <Icons.logo />
+            <div className="size-12">
+              <img src="/logo.svg" alt="logo" width={100} height={100} />
+            </div>
             <h4 className="ml-2 font-heading text-xl">{siteConfig.name}</h4>
           </Link>
 
