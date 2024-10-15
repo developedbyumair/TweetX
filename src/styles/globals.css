@@ -72,5 +72,7 @@
   }
   body {
     @apply bg-background text-foreground;
+    background-image: radial-gradient(hsla(0, 0%, 86%, 0.5) 1px, transparent 0);
+    background-size: 12px 12px;
   }
 }
