@@ -3,8 +3,10 @@
 import Link from "next/link"
 
 import { siteConfig } from "@/config/site"
+import { cn } from "@/lib/utils"
 
 import { Icons } from "../icons"
+import { buttonVariants } from "../ui/button"
 
 export function Header() {
   return (
@@ -19,7 +21,16 @@ export function Header() {
           </Link>
 
           <div className={`flex h-full w-1/2 items-center justify-end gap-2`}>
-            <Icons.user className="mr-2 h-4 w-4" />
+            <Link
+              href="#"
+              className={cn(
+                buttonVariants({ variant: "outline", size: "sm" }),
+                "h-9 rounded-full dark:border-white/20"
+              )}
+            >
+              <Icons.user className="mr-2 h-4 w-4" />
+              <span>Get Started</span>
+            </Link>
           </div>
         </div>
       </div>
