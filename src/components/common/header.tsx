@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import { toast } from "sonner"
 
 import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
@@ -22,6 +23,9 @@ export function Header() {
 
           <div className={`flex h-full w-1/2 items-center justify-end gap-2`}>
             <Link
+              onClick={() => {
+                toast.info("Coming Soon")
+              }}
               href="#"
               className={cn(
                 buttonVariants({ variant: "outline", size: "sm" }),
