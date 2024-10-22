@@ -12,7 +12,7 @@ export async function generateTweetResult(
 ): Promise<GenerateTweetResult> {
   try {
     const tweet = await fetchTweet(String(id))
-    return { data: tweet as Tweet }
+    return { data: tweet.data }
   } catch (error) {
     return {
       error: error instanceof Error ? error : new Error("Unknown error"),
