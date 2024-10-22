@@ -1,13 +1,15 @@
 "use client"
 
 import { useState } from "react"
+import { generateTweetResult } from "@/server/actions/tweet/actions"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useTheme } from "next-themes"
 import { useForm } from "react-hook-form"
+import { fetchTweet } from "react-tweet/api"
 import { toast } from "sonner"
 import { z } from "zod"
 
-import { checkValidTweetUrl, cn } from "@/lib/utils"
+import { checkValidTweetUrl, cn, formatTweetUrlId } from "@/lib/utils"
 import {
   Form,
   FormControl,
@@ -45,12 +47,15 @@ export default function GenerateForm({
     },
   })
 
-  const analyzeUserTweet = (url: string) => {
+  const analyzeUserTweet = async (url: string) => {
     if (!checkValidTweetUrl(url)) {
       toast.error("Invalid tweet URL")
       return
     }
-    console.log("Valid tweet URL, proceeding with analysis")
+    const tweetId = formatTweetUrlId(url)
+    console.log("tweetId", tweetId)
+    const result = await generateTweetResult(String(tweetId))
+    console.log("result", result.text)
   }
   async function onSubmit(
     data: z.infer<typeof FormSchema>,

@@ -9,3 +9,6 @@ export function checkValidTweetUrl(url: string) {
     /^https?:\/\/(www\.)?(twitter\.com|x\.com)\/[a-zA-Z0-9_]+\/status\/[0-9]+$/
   return tweetUrlRegex.test(url)
 }
+export function formatTweetUrlId(url: string) {
+  return url.split("/").pop()
+}
