@@ -37,7 +37,6 @@ export default function GenerateForm({
   const [activeTab, setActiveTab] = useState<"generate" | "analyze">("generate")
   const [generateInput, setGenerateInput] = useState("")
   const [analyzeInput, setAnalyzeInput] = useState("")
-  const [generateResult, setGenerateResult] = useState("")
   const [analyzeResult, setAnalyzeResult] = useState("")
 
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -55,7 +54,7 @@ export default function GenerateForm({
     const tweetId = formatTweetUrlId(url)
     await generateTweetResult(String(tweetId))
       .then((res) => {
-        console.log("result", res?.data?.text)
+        console.log("result", res?.data)
       })
       .catch((error) => {
         toast.error("Country Banned Please use a different VPN")
@@ -66,7 +65,9 @@ export default function GenerateForm({
     action: "generate" | "analyze"
   ) {
     if (action === "generate") {
-      setGenerateResult("AI generated tweet based on: " + data.input)
+      if (!analyzeInput) {
+        setActiveTab("analyze")
+      }
       return
     }
     analyzeUserTweet(data.input)
@@ -211,13 +212,6 @@ export default function GenerateForm({
           </form>
         </Form>
       </TabsContent>
-      {activeTab === "generate" && generateResult && (
-        <Textarea
-          value={generateResult}
-          readOnly
-          className="mt-4 h-32 resize-none rounded-lg bg-muted text-foreground"
-        />
-      )}
       {activeTab === "analyze" && analyzeResult && (
         <Textarea
           value={analyzeResult}
