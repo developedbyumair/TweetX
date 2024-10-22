@@ -4,9 +4,10 @@ import { useState } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useTheme } from "next-themes"
 import { useForm } from "react-hook-form"
+import { toast } from "sonner"
 import { z } from "zod"
 
-import { cn } from "@/lib/utils"
+import { checkValidTweetUrl, cn } from "@/lib/utils"
 import {
   Form,
   FormControl,
@@ -44,6 +45,13 @@ export default function GenerateForm({
     },
   })
 
+  const analyzeUserTweet = (url: string) => {
+    if (!checkValidTweetUrl(url)) {
+      toast.error("Invalid tweet URL")
+      return
+    }
+    console.log("Valid tweet URL, proceeding with analysis")
+  }
   async function onSubmit(
     data: z.infer<typeof FormSchema>,
     action: "generate" | "analyze"
@@ -52,7 +60,7 @@ export default function GenerateForm({
       setGenerateResult("AI generated tweet based on: " + data.input)
       return
     }
-    setAnalyzeResult("Analysis of tweet: " + data.input)
+    analyzeUserTweet(data.input)
   }
 
   const ThemeIcon = theme === "dark" ? Icons.moon : Icons.sun
