@@ -53,9 +53,13 @@ export default function GenerateForm({
       return
     }
     const tweetId = formatTweetUrlId(url)
-    console.log("tweetId", tweetId)
-    const result = await generateTweetResult(String(tweetId))
-    console.log("result", result.text)
+    await generateTweetResult(String(tweetId))
+      .then((res) => {
+        console.log("result", res?.data?.text)
+      })
+      .catch((error) => {
+        toast.error("Country Banned Please use a different VPN")
+      })
   }
   async function onSubmit(
     data: z.infer<typeof FormSchema>,

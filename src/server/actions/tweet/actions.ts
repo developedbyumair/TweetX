@@ -1,12 +1,21 @@
 "use server"
 
-import { fetchTweet } from "react-tweet/api"
+import { fetchTweet, Tweet } from "react-tweet/api"
 
-export async function generateTweetResult(id: string) {
+type GenerateTweetResult = {
+  data?: Tweet
+  error?: Error
+}
+
+export async function generateTweetResult(
+  id: string
+): Promise<GenerateTweetResult> {
   try {
     const tweet = await fetchTweet(String(id))
-    return tweet.data
+    return { data: tweet as Tweet }
   } catch (error) {
-    return error
+    return {
+      error: error instanceof Error ? error : new Error("Unknown error"),
+    }
   }
 }
